@@ -23,6 +23,13 @@
             id: "openseadragon-viewer", // 必須跟上面的 div id 一致
             prefixUrl: "osd-icons/",    // 存放放大縮小按鈕的資料夾
             sequenceMode: true,          // 開啟 360 度序列模式
+            // === 加入以下這幾行優化參數 ===
+    blendTime: 0,              // 1. 重要：將淡入淡出時間設為 0，消除黑色閃爍
+    alwaysBlend: false,        // 2. 關閉混合模式，提升渲染速度
+    autoHideControls: true,    // 3. 自動隱藏介面，減少運算負擔
+    immediateRender: true,     // 4. 強制立即渲染，減少等待感
+    preload: true,             // 5. 預載鄰近影格，讓旋轉更流暢
+    // ===========================================
             showReferenceStrip: false,   // 隱藏下方縮圖列以保持畫面乾淨
             tileSources: [               // 這裡填入您 32 張圖片的路徑
                "tiles/set1/big_001.dzi",
