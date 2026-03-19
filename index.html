@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>360度泥偶環物攝影展示</title>
+    <style>
+        body { background-color: #000; color: #fff; margin: 0; }
+        #openseadragon-viewer {
+            width: 100%;
+            height: 90vh; /* 佔據螢幕 90% 的高度 */
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="openseadragon-viewer"></div>
+
+    <script src="js/openseadragon.min.js"></script>
+
+    <script>
+        var viewer = OpenSeadragon({
+            id: "openseadragon-viewer", // 必須跟上面的 div id 一致
+            prefixUrl: "osd-icons/",    // 存放放大縮小按鈕的資料夾
+            sequenceMode: true,          // 開啟 360 度序列模式
+            showReferenceStrip: false,   // 隱藏下方縮圖列以保持畫面乾淨
+            tileSources: [               // 這裡填入您 32 張圖片的路徑
+               "tiles/set1/big_001.dzi",
+    "tiles/set1/big_002.dzi",
+    "tiles/set1/big_003.dzi",
+    "tiles/set1/big_004.dzi",
+    "tiles/set1/big_005.dzi",
+    "tiles/set1/big_006.dzi",
+    "tiles/set1/big_007.dzi",
+    "tiles/set1/big_008.dzi",
+    "tiles/set1/big_009.dzi",
+    "tiles/set1/big_010.dzi",
+    "tiles/set1/big_011.dzi",
+    "tiles/set1/big_012.dzi",
+    "tiles/set1/big_013.dzi",
+    "tiles/set1/big_014.dzi",
+    "tiles/set1/big_015.dzi",
+    "tiles/set1/big_016.dzi",
+    "tiles/set1/big_017.dzi",
+    "tiles/set1/big_018.dzi",
+    "tiles/set1/big_019.dzi",
+    "tiles/set1/big_020.dzi",
+    "tiles/set1/big_021.dzi",
+    "tiles/set1/big_022.dzi",
+    "tiles/set1/big_023.dzi",
+    "tiles/set1/big_024.dzi",
+    "tiles/set1/big_025.dzi",
+    "tiles/set1/big_026.dzi",
+    "tiles/set1/big_027.dzi",
+    "tiles/set1/big_028.dzi",
+    "tiles/set1/big_029.dzi",
+    "tiles/set1/big_030.dzi",
+    "tiles/set1/big_031.dzi",
+    "tiles/set1/big_032.dzi"
+                // ... 之後用 Python 生成的清單貼在這裡
+            ]
+        });
+    </script>
+</body>
+</html>
