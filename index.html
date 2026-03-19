@@ -20,55 +20,57 @@
 
     <script>
         var viewer = OpenSeadragon({
-    id: "openseadragon-viewer",
-    prefixUrl: "osd-icons/",
-    sequenceMode: true,
-    
-    // --- 暴力優化：極速渲染參數 ---
-    blendTime: 0,
-    animationTime: 0,
-    springStiffness: 100,
-    preload: true,
-    minZoomImageRatio: 1,
-    visibilityRatio: 1,
-    immediateRender: true,
-
-    // --- 指定你的 32 張 3840px JPEG 路徑 ---
-    tileSources: [
-        { type: 'image', url: 'pure_jpegs/big_001_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_002_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_003_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_004_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_005_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_006_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_007_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_008_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_009_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_010_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_011_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_012_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_013_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_014_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_015_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_016_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_017_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_018_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_019_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_020_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_021_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_022_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_023_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_024_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_025_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_026_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_027_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_028_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_029_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_030_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_031_3840px.jpg' },
-        { type: 'image', url: 'pure_jpegs/big_032_3840px.jpg' }
-    ]
-});
+        id: "openseadragon-viewer",
+        prefixUrl: "osd-icons/",
+        sequenceMode: true,
+        
+        // --- 核心：殺死所有漣漪與縮放動畫 ---
+        blendTime: 0,                // 消除淡入淡出
+        animationTime: 0,            // 消除所有平滑移動動畫 (最重要的！)
+        springStiffness: 100,        // 讓反應變為瞬間
+        preserveViewport: true,      // 關鍵：換圖時「固定視角」，不准它重新縮放產生漣漪
+        visibilityRatio: 1,          // 強制圖片填滿
+        
+        // --- 性能榨乾 ---
+        preload: true,               // 預載圖片
+        immediateRender: true,       // 立即渲染，不准排隊
+        placeholderColor: "#fff",    // 如果背景是白色的，請設為白色，閃爍感會消失
+        
+        tileSources: [
+            { type: 'image', url: 'pure_jpegs/big_001_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_002_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_003_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_004_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_005_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_006_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_007_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_008_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_009_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_010_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_011_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_012_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_013_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_014_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_015_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_016_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_017_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_018_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_019_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_020_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_021_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_022_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_023_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_024_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_025_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_026_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_027_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_028_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_029_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_030_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_031_3840px.jpg' },
+            { type: 'image', url: 'pure_jpegs/big_032_3840px.jpg' }
+        ]
+    });
 
 // --- 抓著轉的互動邏輯 ---
 viewer.addHandler('canvas-drag', function(event) {
