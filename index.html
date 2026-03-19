@@ -29,6 +29,11 @@
     autoHideControls: true,    // 3. 自動隱藏介面，減少運算負擔
     immediateRender: true,     // 4. 強制立即渲染，減少等待感
     preload: true,             // 5. 預載鄰近影格，讓旋轉更流暢
+    // 在 preload: true 下方繼續補上：
+    animationTime: 0,             // 1. 重要：將動畫時間設為 0，讓切換瞬間發生
+    springStiffness: 100,         // 2. 讓畫面切換像彈簧一樣直接「噴」過去
+    autoResize: false,            // 3. 關閉自動縮放檢查，節省效能
+    subPixelRender: true,         // 4. 改善一億像素縮小後的渲染邊緣
     // ===========================================
             showReferenceStrip: false,   // 隱藏下方縮圖列以保持畫面乾淨
             tileSources: [               // 這裡填入您 32 張圖片的路徑
@@ -69,25 +74,21 @@
         });
         // ====== 關鍵互動代碼 ======
 
-// 實現滑鼠拖曳旋轉物件
 viewer.addHandler('canvas-drag', function(event) {
-    var deltaX = event.delta.x; // 滑鼠左右移動的距離
-    var curPage = viewer.currentPage(); // 目前顯示的是第幾張泥偶
-    var total = viewer.tileSources.length; // 總共有 32 張
+    var deltaX = event.delta.x;
+    var curPage = viewer.currentPage();
+    var total = viewer.tileSources.length;
 
-    // 靈敏度設定：數字越小越靈敏。GFX 一億像素大圖建議設定在 2~3 之間。
-    var sensitivity = 3; 
+    // 靈敏度設為 5，代表滑鼠要移動一段距離才換一張圖，反而會變順
+    var sensitivity = 5; 
 
-    if (deltaX > sensitivity) { 
-        // 向右拖，顯示泥偶的「上一影格」
-        viewer.goToPage((curPage - 1 + total) % total); 
-    } else if (deltaX < -sensitivity) { 
-        // 向左拖，顯示泥偶的「下一影格」
-        viewer.goToPage((curPage + 1) % total); 
+    if (Math.abs(deltaX) > sensitivity) {
+        var newPage = (deltaX > 0) ? (curPage - 1 + total) % total : (curPage + 1) % total;
+        
+        // 使用 true 代表「立即載入」，不要有任何漸變
+        viewer.goToPage(newPage, true); 
     }
 });
-
-// ====== 貼到這裡結束 ======
     </script>
 </body>
 </html>
