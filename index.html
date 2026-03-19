@@ -76,7 +76,7 @@ viewer.addHandler('canvas-drag', function(event) {
     var total = viewer.tileSources.length; // 總共有 32 張
 
     // 靈敏度設定：數字越小越靈敏。GFX 一億像素大圖建議設定在 2~3 之間。
-    var sensitivity = 2.5; 
+    var sensitivity = 5; 
 
     if (deltaX > sensitivity) { 
         // 向右拖，顯示泥偶的「上一影格」
