@@ -60,6 +60,27 @@
                 // ... 之後用 Python 生成的清單貼在這裡
             ]
         });
+        // ====== 關鍵互動代碼 ======
+
+// 實現滑鼠拖曳旋轉物件
+viewer.addHandler('canvas-drag', function(event) {
+    var deltaX = event.delta.x; // 滑鼠左右移動的距離
+    var curPage = viewer.currentPage(); // 目前顯示的是第幾張泥偶
+    var total = viewer.tileSources.length; // 總共有 32 張
+
+    // 靈敏度設定：數字越小越靈敏。GFX 一億像素大圖建議設定在 2~3 之間。
+    var sensitivity = 2.5; 
+
+    if (deltaX > sensitivity) { 
+        // 向右拖，顯示泥偶的「上一影格」
+        viewer.goToPage((curPage - 1 + total) % total); 
+    } else if (deltaX < -sensitivity) { 
+        // 向左拖，顯示泥偶的「下一影格」
+        viewer.goToPage((curPage + 1) % total); 
+    }
+});
+
+// ====== 貼到這裡結束 ======
     </script>
 </body>
 </html>
